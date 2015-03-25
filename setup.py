@@ -12,5 +12,8 @@ setup(
     url='https://github.com/usebenchmark/benchmark-insights.git',
     description="Benchmark's insight engine",
     long_description=open('README.rst').read(),
+    install_requires=[
+        'numpy'
+    ],
     zip_safe=False,
 )
