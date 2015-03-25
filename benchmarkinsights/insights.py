@@ -1,9 +1,24 @@
 import numpy as np
 
+STAT_ATTRS = ['likes',
+              'checkin_count',
+              'people_talking',
+              'rating',
+              'rating_count',
+              'user_count',
+              'tip_count']
+
 
 class Stats(object):
     def __init__(self, data):
         self.data = data
+
+    @property
+    def stats(self):
+        stats = {}
+        for attr in dir(self):
+            if attr in STAT_ATTRS:
+                stats[attr] = getattr(self, attr)
 
 
 class FacebookStats(Stats):
