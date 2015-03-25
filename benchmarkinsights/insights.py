@@ -24,7 +24,7 @@ class Stats(object):
 class FacebookStats(Stats):
     @property
     def likes(self):
-        likes = [i.likes for i in self.data]
+        likes = [i.get('likes') for i in self.data]
         return {'average': round(np.average(likes), 1),
                 'total': np.sum(likes)}
 
