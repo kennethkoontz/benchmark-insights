@@ -19,6 +19,7 @@ class Stats(object):
         for attr in dir(self):
             if attr in STAT_ATTRS:
                 stats[attr] = getattr(self, attr)
+        return stats
 
 
 class FacebookStats(Stats):
