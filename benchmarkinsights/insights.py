@@ -12,6 +12,7 @@ STAT_ATTRS = ['likes',
 class Stats(object):
     def __init__(self, data):
         self.data = data
+        return self
 
     @property
     def stats(self):
