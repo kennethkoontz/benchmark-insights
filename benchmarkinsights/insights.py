@@ -46,7 +46,7 @@ class YelpStats(Stats):
     @property
     def rating(self):
         rating = [i.get('rating') for i in self.data]
-        return {'average': np.average(rating)}
+        return {'average': round(np.average(rating), 1)}
 
     @property
     def rating_count(self):
