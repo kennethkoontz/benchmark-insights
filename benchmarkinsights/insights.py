@@ -21,6 +21,9 @@ class Stats(object):
                 stats[attr] = getattr(self, attr)
         return stats
 
+    def sort(self, stat, **kwargs):
+        return sorted(self.data, key=lambda item: item[stat], **kwargs)
+
 
 class FacebookStats(Stats):
     @property
@@ -41,6 +44,14 @@ class FacebookStats(Stats):
         return {'average': round(np.average(people_talking), 1),
                 'total': np.sum(people_talking)}
 
+    @property
+    def top_3(self):
+        return self.sort('likes', reverse=True)[:3]
+
+    @property
+    def bottom_3(self):
+        return self.sort('likes')[:3]
+
 
 class YelpStats(Stats):
     @property
@@ -54,6 +65,14 @@ class YelpStats(Stats):
         return {'average': round(np.average(rating_count), 1),
                 'total': np.sum(rating_count)}
 
+    @property
+    def top_3(self):
+        return self.sort('rating', reverse=True)[:3]
+
+    @property
+    def bottom_3(self):
+        return self.sort('rating')[:3]
+
 
 class GoogleStats(Stats):
     @property
@@ -66,6 +85,14 @@ class GoogleStats(Stats):
         rating_count = [i.get('rating_count') for i in self.data]
         return {'average': round(np.average(rating_count), 1),
                 'total': np.sum(rating_count)}
+
+    @property
+    def top_3(self):
+        return self.sort('rating', reverse=True)[:3]
+
+    @property
+    def bottom_3(self):
+        return self.sort('rating')[:3]
 
 
 class FoursquareStats(Stats):
@@ -97,3 +124,11 @@ class FoursquareStats(Stats):
         tip_count = [i.get('tip_count') for i in self.data]
         return {'average': round(np.average(tip_count), 1),
                 'total': np.sum(tip_count)}
+
+    @property
+    def top_3(self):
+        return self.sort('rating', reverse=True)[:3]
+
+    @property
+    def bottom_3(self):
+        return self.sort('rating')[:3]
