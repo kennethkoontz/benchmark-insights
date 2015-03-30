@@ -6,7 +6,8 @@ STAT_ATTRS = ['likes',
               'rating',
               'rating_count',
               'user_count',
-              'tip_count']
+              'tip_count',
+              'checkin_per_user']
 
 
 class Stats(object):
@@ -124,6 +125,10 @@ class FoursquareStats(Stats):
         tip_count = [i.get('tip_count') for i in self.data]
         return {'average': round(np.average(tip_count), 1),
                 'total': np.sum(tip_count)}
+
+    @property
+    def checkin_per_user(self):
+        return {'average': self.checkin_count / self.user_count}
 
     @property
     def top_3(self):
