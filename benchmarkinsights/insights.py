@@ -128,7 +128,9 @@ class FoursquareStats(Stats):
 
     @property
     def checkins_per_user(self):
-        checkins_per_user = self.checkin_count / self.user_count
+        checkin_count = self.checkin_count['total']
+        user_count = self.user_count['total']
+        checkins_per_user = checkin_count / user_count
         return {'average': round(checkins_per_user, 1)}
 
     @property
