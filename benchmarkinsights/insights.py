@@ -10,6 +10,29 @@ STAT_ATTRS = ['likes',
               'checkins_per_user']
 
 
+def get_quality_score(loc):
+    """
+    G = Google Rating
+    FS = Foursquare Rating
+    Y = Yelp Rating
+
+    (((G * 2) + FS + (Y * 2)) / 3) * 10
+    """
+    google = (loc.get('latest_summaries', {})
+              .get('google', {})
+              .get('rating')) or 0
+    google *= 2
+    yelp = (loc.get('latest_summaries', {})
+            .get('yelp', {})
+            .get('rating')) or 0
+    yelp *= 2
+    foursquare = (loc.get('latest_summaries', {})
+                  .get('foursquare', {})
+                  .get('rating')) or 0
+
+    return round(((google + yelp + foursquare) / 3) * 10, 2)
+
+
 class Stats(object):
     def __init__(self, data):
         self.data = data
