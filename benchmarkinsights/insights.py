@@ -9,6 +9,8 @@ STAT_ATTRS = ['likes',
               'tip_count',
               'checkins_per_user']
 
+def remove_none_values(l):
+    return [i for i in l if i is not None]
 
 def get_quality_score(loc):
     """
@@ -53,18 +55,21 @@ class FacebookStats(Stats):
     @property
     def likes(self):
         likes = [i.get('likes') for i in self.data]
+        likes = remove_none_values(likes)
         return {'average': round(np.average(likes), 1),
                 'total': np.sum(likes)}
 
     @property
     def checkin_count(self):
         checkin_count = [i.get('checkin_count') for i in self.data]
+        checkin_count = remove_none_values(checkin_count)
         return {'average': round(np.average(checkin_count), 1),
                 'total': np.sum(checkin_count)}
 
     @property
     def people_talking(self):
         people_talking = [i.get('people_talking') for i in self.data]
+        people_talking = remove_none_values(people_talking)
         return {'average': round(np.average(people_talking), 1),
                 'total': np.sum(people_talking)}
 
@@ -81,11 +86,13 @@ class YelpStats(Stats):
     @property
     def rating(self):
         rating = [i.get('rating') for i in self.data]
+        rating = remove_none_values(rating)
         return {'average': round(np.average(rating), 1)}
 
     @property
     def rating_count(self):
         rating_count = [i.get('rating_count') for i in self.data]
+        rating_count = remove_none_values(rating_count)
         return {'average': round(np.average(rating_count), 1),
                 'total': np.sum(rating_count)}
 
@@ -102,11 +109,13 @@ class GoogleStats(Stats):
     @property
     def rating(self):
         rating = [i.get('rating') for i in self.data]
+        rating = remove_none_values(rating)
         return {'average': round(np.average(rating), 1)}
 
     @property
     def rating_count(self):
         rating_count = [i.get('rating_count') for i in self.data]
+        rating_count = remove_none_values(rating_count)
         return {'average': round(np.average(rating_count), 1),
                 'total': np.sum(rating_count)}
 
@@ -123,29 +132,34 @@ class FoursquareStats(Stats):
     @property
     def rating(self):
         rating = [i.get('rating') for i in self.data]
+        rating = remove_none_values(rating)
         return {'average': round(np.average(rating), 1)}
 
     @property
     def checkin_count(self):
         checkin_count = [i.get('checkin_count') for i in self.data]
+        checkin_count = remove_none_values(checkin_count)
         return {'average': round(np.average(checkin_count), 1),
                 'total': np.sum(checkin_count)}
 
     @property
     def likes(self):
         likes = [i.get('likes') for i in self.data]
+        likes = remove_none_values(likes)
         return {'average': round(np.average(likes), 1),
                 'total': np.sum(likes)}
 
     @property
     def user_count(self):
         user_count = [i.get('user_count') for i in self.data]
+        user_count = remove_none_values(user_count)
         return {'average': round(np.average(user_count), 1),
                 'total': np.sum(user_count)}
 
     @property
     def tip_count(self):
         tip_count = [i.get('tip_count') for i in self.data]
+        tip_count = remove_none_values(tip_count)
         return {'average': round(np.average(tip_count), 1),
                 'total': np.sum(tip_count)}
 
