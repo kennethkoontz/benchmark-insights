@@ -9,8 +9,10 @@ STAT_ATTRS = ['likes',
               'tip_count',
               'checkins_per_user']
 
+
 def remove_none_values(l):
     return [i for i in l if i is not None]
+
 
 def get_quality_score(loc):
     """
@@ -33,6 +35,29 @@ def get_quality_score(loc):
                   .get('rating')) or 0
 
     return round(((google + yelp + foursquare) / 3) * 10, 2)
+
+
+def get_location_quality_score(loc):
+    """
+    G = Google Rating
+    FS = Foursquare Rating
+    Y = Yelp Rating
+
+    (((G * 2) + FS + (Y * 2)) / 3) * 10
+    """
+    google = loc.get('google', {}) or 0
+    google *= 2
+    yelp = loc.get('yelp', {}) or 0
+    yelp *= 2
+    foursquare = loc.get('foursquare', {}) or 0
+
+    avg = ((google + yelp + foursquare) / 3) * 10
+    score = 0 if avg == 0 else round(avg, 2)
+    return score
+
+
+def get_average_quality_score(locs):
+    pass
 
 
 class Stats(object):
