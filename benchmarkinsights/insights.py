@@ -21,18 +21,20 @@ def get_quality_score(loc):
     Y = Yelp Rating
 
     (((G * 2) + FS + (Y * 2)) / 3) * 10
+
+    If source doesn't have a rating, we don't ding the quality score.
     """
     google = (loc.get('latest_summaries', {})
               .get('google', {})
-              .get('rating')) or 0
+              .get('rating')) or 5
     google *= 2
     yelp = (loc.get('latest_summaries', {})
             .get('yelp', {})
-            .get('rating')) or 0
+            .get('rating')) or 5
     yelp *= 2
     foursquare = (loc.get('latest_summaries', {})
                   .get('foursquare', {})
-                  .get('rating')) or 0
+                  .get('rating')) or 10
 
     return round(((google + yelp + foursquare) / 3) * 10, 2)
 
