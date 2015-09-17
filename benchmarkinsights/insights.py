@@ -54,15 +54,21 @@ def get_location_quality_score(loc):
 
     (((G * 2) + FS + (Y * 2)) / 3) * 10
     """
-    google = loc.get('google', {}) or 0
-    google *= 2
-    yelp = loc.get('yelp', {}) or 0
-    yelp *= 2
-    foursquare = loc.get('foursquare', {}) or 0
+    google = loc.get('google')
+    yelp = loc.get('yelp')
+    foursquare = loc.get('foursquare')
 
-    avg = ((google + yelp + foursquare) / 3) * 10
-    score = 0 if avg == 0 else round(avg, 2)
-    return score
+    if not google:
+        google = 5
+    if not yelp:
+        yelp = 5
+    if not foursquare:
+        foursquare = 10
+
+    google *= 2
+    yelp *= 2
+
+    return round(((google + yelp + foursquare) / 3) * 10, 2)
 
 
 def get_average_quality_score(locs):
