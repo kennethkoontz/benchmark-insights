@@ -26,15 +26,22 @@ def get_quality_score(loc):
     """
     google = (loc.get('latest_summaries', {})
               .get('google', {})
-              .get('rating')) or 5
-    google *= 2
+              .get('rating'))
     yelp = (loc.get('latest_summaries', {})
             .get('yelp', {})
-            .get('rating')) or 5
-    yelp *= 2
+            .get('rating'))
     foursquare = (loc.get('latest_summaries', {})
                   .get('foursquare', {})
-                  .get('rating')) or 10
+                  .get('rating'))
+    if not google:
+        google = 5
+    if not yelp:
+        yelp = 5
+    if not foursquare:
+        foursquare = 10
+
+    google *= 2
+    yelp *= 2
 
     return round(((google + yelp + foursquare) / 3) * 10, 2)
 
