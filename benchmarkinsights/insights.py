@@ -148,7 +148,7 @@ class YelpStats(Stats):
 class GoogleStats(Stats):
     @property
     def rating(self):
-        rating = [i.get('rating') for i in self.data]
+        rating = [i.get('rating') for i in self.data] or [0]
         rating = remove_none_values(rating)
         return {'average': round(np.average(rating), 1)}
 
