@@ -154,7 +154,7 @@ class GoogleStats(Stats):
 
     @property
     def rating_count(self):
-        rating_count = [i.get('rating_count') for i in self.data]
+        rating_count = [i.get('rating_count') for i in self.data] or [0]
         rating_count = remove_none_values(rating_count)
         return {'average': round(np.average(rating_count), 1),
                 'total': np.sum(rating_count)}
